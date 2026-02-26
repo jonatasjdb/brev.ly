@@ -3,6 +3,7 @@ import { z } from "zod"
 const envSchema = z.object({
 	PORT: z.coerce.number().default(3333),
 	DATABASE_URL: z.url().startsWith("postgresql://"),
+	NODE_ENV: z.enum(["dev", "test", "production"]).default("production"),
 
 	CLOUDFLARE_ACCOUNT_ID: z.string(),
 	CLOUDFLARE_ACCESS_KEY_ID: z.string(),
