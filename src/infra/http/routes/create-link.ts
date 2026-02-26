@@ -8,11 +8,10 @@ export const createLinkRoute: FastifyPluginAsyncZod = async (server) => {
 		"/links",
 		{
 			schema: {
-				// tags: ["links"],
 				summary: "Create Link",
 				body: z.object({
 					link: z.url("Invalid URL"),
-					short_link: z
+					shortLink: z
 						.string()
 						.min(3)
 						.max(20)
@@ -29,9 +28,9 @@ export const createLinkRoute: FastifyPluginAsyncZod = async (server) => {
 		},
 		async (request, reply) => {
 			try {
-				const { link, short_link } = request.body
+				const { link, shortLink } = request.body
 
-				await createLink({ link, short_link })
+				await createLink({ link, shortLink })
 
 				return reply.status(201).send(null)
 			} catch (error) {

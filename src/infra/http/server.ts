@@ -9,6 +9,10 @@ import {
 } from "fastify-type-provider-zod"
 import { env } from "@/env"
 import { createLinkRoute } from "./routes/create-link"
+import { deleteLinkRoute } from "./routes/delete-link"
+import { getLinksRoute } from "./routes/get-links"
+import { getOriginalLinkRoute } from "./routes/get-original-link"
+import { accessCountLinkRoute } from "./routes/register-link-access"
 
 const app = fastify()
 
@@ -28,7 +32,11 @@ app.register(fastifySwagger, {
 	transform: jsonSchemaTransform,
 })
 
+app.register(getLinksRoute)
+app.register(getOriginalLinkRoute)
 app.register(createLinkRoute)
+app.register(accessCountLinkRoute)
+app.register(deleteLinkRoute)
 
 app.get("/openapi.json", () => app.swagger())
 

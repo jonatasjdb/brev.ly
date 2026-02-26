@@ -6,7 +6,7 @@ import { AlreadyExists } from "./errors/already-exists"
 
 const createLinkInput = z.object({
 	link: z.url(),
-	short_link: z
+	shortLink: z
 		.string()
 		.min(3)
 		.max(20)
@@ -15,21 +15,20 @@ const createLinkInput = z.object({
 
 type CreateLinkInput = z.input<typeof createLinkInput>
 
-export async function createLink({
-	link,
-	short_link,
-}: CreateLinkInput): Promise<void> {
+export async function createLink(input: CreateLinkInput): Promise<void> {
+	const { link, shortLink } = createLinkInput.parse(input)
+
 	const [linkAlreadyExists] = await db
 		.select({ id: links.id })
 		.from(links)
-		.where(eq(links.shortUrl, short_link))
+		.where(eq(links.shortUrl, shortLink))
 
 	if (linkAlreadyExists) {
 		throw new AlreadyExists()
 	}
 	await db.insert(links).values({
 		originalUrl: link,
-		shortUrl: short_link,
+		shortUrl: shortLink,
 	})
 
 	return
