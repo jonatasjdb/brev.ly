@@ -8,6 +8,20 @@
       "when": 1772018020063,
       "tag": "0000_adorable_gorgon",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1772067953919,
+      "tag": "0001_aspiring_slayback",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1772068082690,
+      "tag": "0002_greedy_revanche",
+      "breakpoints": true
     }
   ]
 }
