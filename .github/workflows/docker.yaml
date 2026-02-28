@@ -49,7 +49,7 @@ jobs:
         run: pnpm install
 
       - name: Run migrations
-        run: pnpm drizzle-kit migrate
+        run: dotenv -e .env.ci -- pnpm pnpm drizzle-kit migrate
 
       - name: Run tests
         run: pnpm run test
