@@ -1,5 +1,9 @@
 name: CI + Docker
 
+defaults:
+  run:
+    working-directory: ./server
+
 on:
   push:
     branches: [ "main" ]
