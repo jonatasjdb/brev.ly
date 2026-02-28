@@ -6,6 +6,7 @@ API para gerenciamento de encurtamento de URLs desenvolvida com TypeScript, Fast
 
 O projeto foi organizado seguindo princípios de separação de responsabilidades e isolamento de regras de negócio.
 
+```
 src/
 ├── app/ # Casos de uso (regras de negócio)
 │ └── functions/
@@ -15,6 +16,7 @@ src/
 │ └── storage/ # Integração com Cloudflare R2
 ├── test/ # Setup e Factories
 └── env.ts # Validação tipada de variáveis ambiente
+```
 
 Decisão arquitetural
 • A camada app não depende de Fastify.
@@ -51,7 +53,9 @@ Motivação:
 
 Script obrigatório:
 
-`pnpm run db:migrate`
+```
+pnpm run db:migrate
+```
 
 📤 Exportação de CSV
 
@@ -79,7 +83,10 @@ Testes unitários cobrindo os principais casos de uso:
 
 Execução:
 
-`pnpm run test`
+```
+pnpm run test
+```
+
 Ambiente de teste isolado via .env.test.
 
 ⚙️ Variáveis de Ambiente
@@ -106,13 +113,17 @@ Dockerfile multi-stage com:
 • Imagem leve baseada em Alpine
 
 Build:
-`docker build -t brevly-api ./server`
+
+```
+docker build -t brevly-api ./server
+```
 
 Run:
 
-```docker run -p 3333:3333 \
-  -e DATABASE_URL=... \
-  brevly-api
+```
+docker run -p 3333:3333 \
+-e DATABASE_URL=... \
+brevly-api
 ```
 
 🧠 Considerações Técnicas
