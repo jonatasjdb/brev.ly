@@ -1,4 +1,4 @@
-FROM node:25.2.1 AS base
+FROM node:20-alpine AS base
 
 RUN npm i -g pnpm
 
@@ -15,7 +15,7 @@ FROM base as build
 WORKDIR /usr/src/app
 
 COPY . .
-COPY --from=dependencies usr/src/app/node_modules ./node_modules
+COPY --from=dependencies /usr/src/app/node_modules ./node_modules
 
 RUN pnpm build
 RUN pnpm prune --prod
