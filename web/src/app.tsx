@@ -1,19 +1,24 @@
-import { CopyIcon } from "@phosphor-icons/react";
-import { Button } from "./components/ui/button";
+import { BrowserRouter, Route, Routes } from "react-router";
+import { LayoutMain } from "./pages/layout-main";
+import { NotFound } from "./pages/not-found";
+import { PageHome } from "./pages/page-home";
+import { Redirect } from "./pages/redirect";
 
 function App() {
 	return (
-		<>
-    <div className="flex flex-col p-2 gap-2">
-      <Button>Label</Button>
-      <Button structure="secondary" icon={<CopyIcon size={30} />}>Label</Button>
-      Disabled
-      <Button disabled>Label</Button>
-
-      <Button structure="secondary" icon={<CopyIcon size={30} />} disabled>Label</Button>
-    </div>
-
-		</>
+		<BrowserRouter>
+			{/* <nav>
+          <Link to="/">Home</Link>
+          <Link to="/redirect">Red</Link>
+        </nav> */}
+			<Routes>
+				<Route path="/" element={<LayoutMain />}>
+					<Route index element={<PageHome />} />
+					<Route path="/:code" element={<Redirect />} />
+          <Route path="/not-found" element={<NotFound />} />
+				</Route>
+			</Routes>
+		</BrowserRouter>
 	);
 }
 
