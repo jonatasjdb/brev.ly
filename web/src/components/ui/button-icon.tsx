@@ -1,5 +1,6 @@
 import type { ComponentProps, ReactNode } from "react"
 import { tv, type VariantProps } from "tailwind-variants"
+import { Loading } from "../ui/loading"
 
 const buttonVariants = tv({
     base: "rounded-lg disabled:opacity-50 disabled:pointer-events-none transition-all duration-200 inline-flex items-center justify-center",
@@ -29,6 +30,7 @@ type ButtonProps = ComponentProps<"button"> &
     VariantProps<typeof buttonVariants> & {
         icon: ReactNode
         children?: ReactNode
+        loading?: boolean
     }
 
 export function ButtonIcon({
@@ -38,6 +40,7 @@ export function ButtonIcon({
     fullWidth,
     icon,
     children,
+    loading,
     ...props
 }: ButtonProps) {
     return (

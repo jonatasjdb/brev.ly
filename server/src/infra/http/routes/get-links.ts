@@ -1,6 +1,6 @@
-import type { FastifyPluginAsyncZod } from "fastify-type-provider-zod"
-import z, { coerce } from "zod"
-import { getLinks } from "@/app/functions/get-links"
+import type { FastifyPluginAsyncZod } from "fastify-type-provider-zod";
+import z, { coerce } from "zod";
+import { getLinks } from "@/app/functions/get-links";
 
 export const getLinksRoute: FastifyPluginAsyncZod = async (server) => {
 	server.get(
@@ -20,6 +20,7 @@ export const getLinksRoute: FastifyPluginAsyncZod = async (server) => {
 								id: z.uuid(),
 								originalUrl: z.string(),
 								shortUrl: z.string(),
+								accessCount: z.number(),
 							}),
 						),
 					}),
@@ -27,11 +28,11 @@ export const getLinksRoute: FastifyPluginAsyncZod = async (server) => {
 			},
 		},
 		async (request, reply) => {
-			const { page, pageSize } = request.query
+			const { page, pageSize } = request.query;
 
-			const { total, data } = await getLinks({ page, pageSize })
+			const { total, data } = await getLinks({ page, pageSize });
 
-			return reply.send({ total, data })
+			return reply.send({ total, data });
 		},
-	)
-}
+	);
+};

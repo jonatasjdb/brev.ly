@@ -1,7 +1,7 @@
-import type { FastifyPluginAsyncZod } from "fastify-type-provider-zod"
-import z from "zod"
-import { createLink } from "@/app/functions/create-link"
-import { AlreadyExists } from "@/app/functions/errors/already-exists"
+import type { FastifyPluginAsyncZod } from "fastify-type-provider-zod";
+import z from "zod";
+import { createLink } from "@/app/functions/create-link";
+import { AlreadyExists } from "@/app/functions/errors/already-exists";
 
 export const createLinkRoute: FastifyPluginAsyncZod = async (server) => {
 	server.post(
@@ -19,7 +19,12 @@ export const createLinkRoute: FastifyPluginAsyncZod = async (server) => {
 				}),
 				response: {
 					201: z
-						.object({ message: z.string() })
+						.object({
+							id: z.uuid(),
+							originalUrl: z.string(),
+							shortUrl: z.string(),
+							accessCount: z.number(),
+						})
 						.describe("Short Link as been Created"),
 					400: z.object({ message: z.string() }).describe("Invalid URL"),
 					409: z
@@ -30,20 +35,20 @@ export const createLinkRoute: FastifyPluginAsyncZod = async (server) => {
 		},
 		async (request, reply) => {
 			try {
-				const { link, shortLink } = request.body
+				const { link, shortLink } = request.body;
 
-				await createLink({ link, shortLink })
+				const result = await createLink({ link, shortLink });
 
-				return reply.status(201).send({ message: "Short Link as been Created" })
+				return reply.status(201).send(result);
 			} catch (error) {
 				if (error instanceof AlreadyExists) {
 					return reply.status(409).send({
 						message: error.message,
-					})
+					});
 				}
 
-				throw error
+				throw error;
 			}
 		},
-	)
-}
+	);
+};

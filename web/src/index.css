@@ -19,10 +19,22 @@
 
     /* Feedback */
     --color-danger: #B12C4D;
+
+    --animate-spin-custom: spin 1s linear infinite;
 }
 
 @layer base {
 body {
     @apply bg-gray-200;
   }
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
 }

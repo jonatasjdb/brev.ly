@@ -1,4 +1,4 @@
-import React from "react";
+import React, { type ComponentProps } from "react";
 import { tv, type VariantProps } from "tailwind-variants";
 
 const containerVariants = tv({
@@ -13,9 +13,7 @@ const containerVariants = tv({
 	},
 });
 
-interface ContainerProps
-	extends VariantProps<typeof containerVariants>,
-		React.ComponentProps<"div"> {
+type ContainerProps = ComponentProps<"div"> & VariantProps<typeof containerVariants> & {
 	as?: keyof React.JSX.IntrinsicElements;
 }
 
