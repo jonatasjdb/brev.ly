@@ -26,12 +26,32 @@ export async function postLinks({ url, shortUrl }: PostLinks) {
 }
 
 export async function accessCount(id: string) {
-	const { statusCode, body } = await fetch(
-		`${api.baseUrl}/links/${id}/access`,
-		{
-			method: "POST",
-		},
-	);
+	const { status } = await fetch(`${api.baseUrl}/links/${id}/access`, {
+		method: "POST",
+	});
 
-	return { statusCode, body };
+	return { status };
+}
+
+export async function deleteLink(id: string) {
+	const response = await fetch(`${api.baseUrl}/links/${id}`, {
+		method: "DELETE",
+	});
+
+	return { status: response.status };
+}
+
+export async function getOriginalLink(shortUrl: string) {
+	const response = await fetch(`${api.baseUrl}/links/${shortUrl}`);
+	const data = await response.json();
+
+	return { status: response.status, data };
+}
+
+export async function getexportLinks() {
+	const response = await fetch(`${api.baseUrl}/links/export`);
+
+	const data = await response.json();
+
+	return { status: response.status, data };
 }

@@ -1,21 +1,44 @@
-import { useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router";
 import Logo from "../assets/Logo.svg?react";
+import { useLinks } from "../hooks/links";
 
 export function Redirect() {
 	const { code } = useParams();
 	const navigate = useNavigate();
 
-	useEffect(() => {
-		async function fetchLink() {
-                await setTimeout(() => {
-                    // window.location.href = 'https://google.com'
-                    navigate('/not-found')
-                },1500)
+	const {getOriginalUrl, incrementAccessLink, } = useLinks()
 
+	const [url, setUrl] = useState("#")
+
+	const hasRun = useRef(false);
+
+	useEffect(() => {
+		if (hasRun.current) return;
+		hasRun.current = true;
+
+		async function fetchLink() {
+			if(!code) {
+				navigate("/not-found");
+				return
+			}
+
+			const result = await getOriginalUrl(code);
+
+			if (!result.success) {
+				navigate("/not-found");
+				return;
+			}
+
+			await incrementAccessLink(result.data.id, code);
+
+			const url = result.data.url
+			setUrl(url)
+			return window.location.replace(url);
 		}
-        fetchLink()
-	});
+
+		fetchLink();
+}, [code, navigate, getOriginalUrl, incrementAccessLink]);
 
 	return (
 		<div className="min-h-[70vh] flex items-center justify-center px-4">
@@ -34,7 +57,7 @@ export function Redirect() {
 
 				<div className="text-sm text-gray-600">
 					Não foi redirecionado?{" "}
-					<a href="#" className="text-blue-base font-medium hover:underline">
+					<a href={url} className="text-blue-base font-medium hover:underline">
 						Acesse aqui
 					</a>
 				</div>

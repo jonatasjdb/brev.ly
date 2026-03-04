@@ -10,14 +10,13 @@ import { useLinks } from "../hooks/links";
 import { useLinkValidation } from "../hooks/useLinksValidation";
 
 export function PageHome() {
-	const { links, loading, addLink } = useLinks();
+	const { links, loading, addLink, removeLink, exportLinks, isDownloading } = useLinks();
 	const { shortUrlError, urlError, checkShortUrl, checkUrl, clearErrors } = useLinkValidation();
 
 	const [url, setUrl] = useState("");
 	const [shortUrl, setShortUrl] = useState("");
 
 	const [isSaving, setIsSaving] = useState(false);
-	const [isDownloading, setIsDownloading] = useState(false)
 
 	const handleShortUrlChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const value = e.target.value;
@@ -44,15 +43,29 @@ export function PageHome() {
 		setUrl("");
 		setShortUrl("");
 		clearErrors();
-		toast.success("Link cadastrado!");
+		toast.success(result.message);
 		} else {
-		toast.error(result.message ?? "Erro ao cadastrar");
+		toast.error(result.message ?? "Erro ao cadastrar.");
 		}
 		setIsSaving(false);
 	};
 
-	async function downloadCsv() {
+	const handleDeleteLink = async(id: string) => {
+		const result = await removeLink(id)
 
+		if(result.success){
+			toast.success(result.message)
+		} else {
+			toast.error(result.message)
+		}
+	}
+
+	async function handleCsv() {
+		const result = await exportLinks()
+
+		if (!result.success) {
+			toast.error(result.message);
+		}
 	}
 
 	return (
@@ -75,19 +88,20 @@ export function PageHome() {
 					placeholder="meu-link"
 				/>
 				<Button onClick={handleSave} disabled={isSaving}>
-					Salvar link
+					{isSaving ? "Salvando Link..." : "Salvar link"}
 				</Button>
 			</div>
 			<div className="w-full bg-white rounded-lg p-10 gap-5">
 				<div className="flex flex-row justify-between">
 					<div className="text-xl text-gray-600 font-bold">Meus Links</div>
-					<ButtonIcon onClick={downloadCsv} icon={isDownloading ? <SpinnerIcon className="animate-spin" size={20} /> : <DownloadSimpleIcon size={20} />}>Baixar CSV</ButtonIcon>
+					<ButtonIcon onClick={handleCsv} icon={isDownloading ? <SpinnerIcon className="animate-spin" size={20} /> : <DownloadSimpleIcon size={20} />} disabled={isDownloading || links.length === 0}>Baixar CSV</ButtonIcon>
 				</div>
 
 				<LinkList
 					links={links}
 					loading={loading}
-					onCopy={() => toast.info("Link copiado com sucesso!")}
+					onCopy={(shortUrl) => toast.info(`O link ${shortUrl} foi para a área de transferência.`)}
+					onDelete={handleDeleteLink}
 				/>
 			</div>
 		</div>

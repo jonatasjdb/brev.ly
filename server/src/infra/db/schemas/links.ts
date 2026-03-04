@@ -1,10 +1,13 @@
-import { integer, pgTable, text, uuid } from "drizzle-orm/pg-core"
-import { timestamps } from "../helpers/timestamps"
+import { integer, pgTable, text } from "drizzle-orm/pg-core";
+import { uuidv7 } from "uuidv7";
+import { timestamps } from "../helpers/timestamps";
 
 export const links = pgTable("links", {
-	id: uuid("id").primaryKey().defaultRandom(),
+	id: text("id")
+		.primaryKey()
+		.$defaultFn(() => uuidv7()),
 	originalUrl: text("original_url").notNull(),
 	shortUrl: text("short_url").notNull().unique(),
 	accessCount: integer("access_count").notNull().default(0),
 	...timestamps,
-})
+});

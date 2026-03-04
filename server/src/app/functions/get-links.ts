@@ -33,6 +33,7 @@ export async function getLinks(input: GetLinksInput): Promise<GetlinksOutput> {
 			accessCount: links.accessCount,
 		})
 		.from(schema.links)
+		.orderBy(links.id)
 		.offset((page - 1) * pageSize)
 		.limit(pageSize);
 

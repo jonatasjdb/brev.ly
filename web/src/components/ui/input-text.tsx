@@ -7,8 +7,8 @@ const inputVariants = tv({
     container: "flex flex-col gap-1 group",
     label: "text-[10px]",
     prefix: "text-gray-400 select-none mr-0.5",
-    inputWrapper: "h-12 px-4 rounded-lg border flex items-center bg-white transition-all ",
-    input: "h-12 rounded-lg text-sm text-gray-600 focus:outline-none",
+    inputWrapper: "h-12 pl-4 pr-1 rounded-lg border flex items-center bg-white transition-all ",
+    input: "h-12 w-full rounded-lg text-sm text-gray-600 focus:outline-none",
     error: "text-[10px] flex items-center gap-1"
   },
   variants: {
