@@ -14,7 +14,5 @@ export function LayoutMain() {
 				<Outlet />
 			</main>
 		</>
-
-
 	);
 }

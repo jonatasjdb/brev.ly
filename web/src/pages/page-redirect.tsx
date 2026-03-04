@@ -1,9 +1,9 @@
 import { useEffect, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router";
 import Logo from "../assets/Logo.svg?react";
-import { useLinks } from "../hooks/links";
+import { useLinks } from "../hooks/useLinks";
 
-export function Redirect() {
+export function PageRedirect() {
 	const { code } = useParams();
 	const navigate = useNavigate();
 
@@ -19,14 +19,14 @@ export function Redirect() {
 
 		async function fetchLink() {
 			if(!code) {
-				navigate("/not-found");
+				navigate("/page-not-found");
 				return
 			}
 
 			const result = await getOriginalUrl(code);
 
 			if (!result.success) {
-				navigate("/not-found");
+				navigate("/page-not-found");
 				return;
 			}
 

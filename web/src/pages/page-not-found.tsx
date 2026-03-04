@@ -1,7 +1,7 @@
 
 import NotFoundImage from "../assets/404.svg?react";
 
-export function NotFound() {
+export function PageNotFound() {
   return (
     <div className="min-h-[70vh] flex items-center justify-center px-4">
       <div className="w-full max-w-lg bg-white rounded-lg p-8 text-center">

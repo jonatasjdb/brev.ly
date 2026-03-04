@@ -6,7 +6,7 @@ import { LinkList } from "../components/link-list";
 import { Button } from "../components/ui/button";
 import { ButtonIcon } from "../components/ui/button-icon";
 import { InputText } from "../components/ui/input-text";
-import { useLinks } from "../hooks/links";
+import { useLinks } from "../hooks/useLinks";
 import { useLinkValidation } from "../hooks/useLinksValidation";
 
 export function PageHome() {

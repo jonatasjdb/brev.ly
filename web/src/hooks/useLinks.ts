@@ -113,13 +113,14 @@ export function useLinks() {
 			link.click();
 			link.remove();
 
-			setIsDownloading(false);
-
-			return;
+			return { success: true };
 		} catch {
-			// setError("Não foi possível baixar o arquivo");
+			return {
+				success: false,
+				message: "Erro na ferramenta de exportação CSV",
+			};
 		} finally {
-			// setLoading(false);
+			setIsDownloading(false);
 		}
 	}
 

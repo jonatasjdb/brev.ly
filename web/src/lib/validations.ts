@@ -11,7 +11,11 @@ export const validateUrl = (value: string): string | null => {
 	if (!value) return "URL é obrigatória";
 	if (/\s/.test(value)) return "Não pode conter espaços";
 	if (value !== value.toLowerCase()) return "Use apenas minúsculas";
-	if (!/^[a-z0-9:/._-]+$/.test(value)) return "Caracteres inválidos";
+
+	// Permite caracteres reservados e não reservados + ? # [ ] %
+	if (!/^[a-z0-9:/._?#@&=$+,;~!*()'[\]%-]+$/.test(value)) {
+		return "URL contém caracteres não permitidos";
+	}
 
 	try {
 		new URL(value);
