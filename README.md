@@ -120,6 +120,11 @@ docker run -p 3333:3333 \
 -e DATABASE_URL=... \
 brevly-api
 ```
+Local:
+```
+• docker-compose -d
+```
+
 
 ### Considerações Técnicas
 
@@ -129,13 +134,31 @@ brevly-api
 • Migrations independentes de integrações externas
 • CI configurado para execução automática de testes
 
-▶ Como executar localmente
+### Configuração
+
+    1.	Instale as dependências:
 
 ```
 pnpm install
+```
+
+    2.	Configure seu .env baseado no .env.example.
+    3.  Rode o compose:
+```
+docker-compose -d
+```
+    4. Rode as migrations:
+```
 pnpm run db:migrate
+```
+    5.	Rode o servidor de desenvolvimento:
+
+```
 pnpm run dev
 ```
+
+    6.	Acesse http://localhost:3333 (ou a porta definida no .env).
+    7.  Especifique a porta utilizada no backend no arquivo .env
 
 ### Observação
 
@@ -174,22 +197,21 @@ web/
 
 ### Configuração
 
-    1.	Clone o repositório.
-    2.	Instale as dependências:
+    1.	Instale as dependências:
 
 ```
 pnpm install
 ```
 
-    3.	Configure seu .env baseado no .env.example.
-    4.	Rode o servidor de desenvolvimento:
+    2.	Configure seu .env baseado no .env.example.
+    3.	Rode o servidor de desenvolvimento:
 
 ```
 pnpm dev
 ```
 
-    5.	Acesse http://localhost:5173 (ou a porta definida no .env).
-    6.  Especifique a porta utilizada no backend no arquivo .env
+    4.	Acesse http://localhost:5173 (ou a porta definida no .env).
+    5.  Especifique a porta utilizada no backend no arquivo .env
 
 ### Observações
 
