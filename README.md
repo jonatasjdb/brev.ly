@@ -1,4 +1,4 @@
-# bre.vly — URL Shortener API
+# bre.vly — URL Shortener
 
 ## Server
 
