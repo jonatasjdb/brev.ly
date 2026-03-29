@@ -1,4 +1,4 @@
-# bre.vly — URL Shortener
+# brev.ly — URL Shortener
 
 ## Server
 
