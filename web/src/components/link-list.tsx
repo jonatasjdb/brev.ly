@@ -60,7 +60,9 @@ function LinkItem({
 					<a href={urlBrev} target="_blank" className="max-md:text-[13px] text-blue-base font-semibold cursor-pointer">
 						{urlBrev}
 					</a>
-					<div className="text-sm text-gray-400">{originalUrl}</div>
+					<div className="text-sm text-gray-400">
+						<span title={originalUrl}>{originalUrl.length > 100 ? `${originalUrl.slice(0,100)}...` : originalUrl}</span>
+					</div>
 				</div>
 
 				<div className="flex items-center max-md:gap-3 gap-7">
